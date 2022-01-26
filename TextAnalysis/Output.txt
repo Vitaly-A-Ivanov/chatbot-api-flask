@@ -1,0 +1,257 @@
+user: ak870
+
+Question: hello
+Answer: Hi! What can I do for you?
+Question: hi
+Answer: Hey my friend! Do you need a help with any topic? 
+Question: 
+Answer: Hey my friend! Do you need a help with any topic? 
+Question: my friend
+Answer: Hello! How can I help you today?
+Question: me
+Answer: Hello! How can I help you today?
+Question: what is a computtional unit
+Answer: Hi! What can I do for you?
+Question: what is a computational unit?
+Answer: Hey my friend! Do you need help with any topic? 
+Question: science
+Answer: Hello! How can I help you today?
+Question: i need help with neurons
+Answer: No problem! What exactly you do not understand?
+
+/////////////////////////////////////////////////////////
+
+Question: ExplAIN MEMBRane potenitIl
+Answer: Hey my friend! Do you need help with any topic? 
+Question: mmebrane potentiAL
+Answer: Hey my friend! Do you need help with any topic?
+//////////
+Question: hello
+Answer: Hey my friend! Do you need help with any topic? 
+Question: I need a help with the machine learning
+Answer: Sad to see you go :(
+Question: I need a help with
+Answer: Sad to see you go :(
+Question: I need a help with
+Answer: Goodbye!
+Question: I need a help with
+Answer: Sad to see you go :(
+Question: I need a help with
+Answer: Goodbye!
+Question: I need a help with
+Answer: Sad to see you go :(
+Question: I need a help with
+Answer: Sad to see you go :(
+Question: I need a help with
+Answer: Sad to see you go :(
+Question: I need a help with
+Answer: Goodbye!
+Question: I need a help with
+Answer: Bye Bye
+Question: I need a help with
+Answer: Sad to see you go :(
+Question: I need a help with
+Answer: Bye Bye
+Question: name
+Answer: My name is Neurogram
+Question: I need a help
+Answer: Do you know the name of the topic you struggling with?
+Question: I need a help with
+Answer: Do you know the name of the topic you struggling with?
+Question: I need a help with
+Answer: No problem! What exactly you do not understand?
+Question: I need a help with
+Answer: No problem! What exactly you do not understand?
+Question: I need a help with
+Answer: Do you know the name of the topic you struggling with?
+Question: is it the topic that you want?
+Answer: Hey my friend! Do you need help with any topic? 
+Question: i need help
+Answer: Question: hi
+Answer: Hi! What can I do for you?
+Question: i need help with yopu
+Answer: No problem! What exactly you do not understand?
+Question: can  you imagine?
+Answer: Do you know the name of the topic you struggling with?
+Question: let me know
+Answer: Hey my friend! Do you need help with any topic? 
+Question: arificial intellegence
+Answer: Question: artificial intellengence
+Answer: Hey my friend! Do you need help with any topic? 
+Question: Can you help me artificial intellegence?
+Answer: No problem! What exactly you do not understand?
+Question: can you help me?
+Answer: h
+Question: help
+Answer: h
+Question: help
+Answer: e
+Question: help
+Answer: e
+Question: help
+Answer: Question: help
+Answer: found help tag
+Question: hello
+Answer: Question: hello
+Answer: Hi! What can I do for you?
+Question: none
+Answer: Hey my friend! Do you need help with any topic? 
+Question: none
+Answer: 
+Question: hhcjh
+Answer: Question: jhcjh
+Answer: did not found anything
+Question: xscss
+Answer: did not found anything
+Question: hey
+Answer: Hello! How can I help you today?
+Question: help
+Answer: found help tag
+Question: hey
+Answer: Hey my friend! Do you need help with any topic? 
+Question: hey
+Answer: Hello! How can I help you today?
+Question: bfhagshc
+Answer: intent not found
+Question: help me please
+Answer: l
+Question: help me please
+Answer: p
+Question: fjjvgd
+Answer: intent not found
+Question: help me please wit neurons
+Answer: found help tag
+Question: ncjscjhjd
+Answer: intent not found
+Question: string helper
+Answer: intent not found
+Question: hi
+Answer: Hey my friend! Do you need help with any topic? 
+Question: how do you do
+Answer: I'm Neurogram the teacher assistant!
+Question: 
+Answer: intent not found
+Question: 
+Answer: intent not found
+Question: neuroicence
+Answer: intent not found
+Question: hfghgchxgchxgvh
+Answer: intent not found
+Question: Can you help me with nxmvdv?
+Answer: found help tag
+Question: mcmbvh
+Answer: not found
+Question: Can you help me with ....
+Answer: found help tag
+Question: HI
+Answer: not found
+Question: hi
+Answer: Hi! What can I do for you?
+Question: HI
+Answer: not found
+Question: HI
+Answer: 
+Question: HI
+Answer: 
+Question: hi
+Answer: Hi! What can I do for you?
+Question: HI
+Answer: 
+Question: HI
+Answer: 
+Question: hi
+Answer: Hello! How can I help you today?
+Question: HI
+Answer: 
+Question: hi
+Answer: Hello! How can I help you today?
+Question: help?
+Answer: 
+Question: hello
+Answer: Hey my friend! Do you need help with any topic? 
+Question: genetic
+Answer: 
+Question: genetic algorithms
+Answer: 
+Question: hello
+Answer: Hi! What can I do for you?
+Question: i want help
+Answer: Question: hello
+Answer: Hello! How can I help you today?
+Question: i want help with genetic algorithms
+Answer: Question: text
+Answer: 
+Question: artificial intelligence
+Answer: 
+Question: genetic algorithms
+Answer: 
+Question: hello
+Answer: Hello! How can I help you today?
+Question: i need some thing
+Answer: Is 'thing' what you looking for?
+Question: hello
+Answer: Hi! What can I do for you?
+Question: i need help with artificial comlexity
+Answer: Is 'artificial comlexity' what you looking for?
+Question: hello
+Answer: Hello! How can I help you today?
+Question: vhvhbvbv
+Answer: 
+Question: bhghghg
+Answer: Question: hello
+Answer: Hey my friend! Do you need help with any topic? 
+Question: artificial intellegence
+Answer: 
+Question: i want help with artificial intellengence
+Answer: Is 'artificial intellengence' what you looking for?
+Question: yes
+Answer: 
+Question: yes
+Answer: 
+Question: file
+Answer: 
+Question: nckxjn
+Answer: 
+Question: hi
+Answer: Hello! How can I help you today?
+Question: i need help with bot
+Answer: Is 'help' what you looking for?
+Question: yes
+Answer: 
+Question: help me with me
+Answer: Question: help me with aetificial
+Answer: Question:  help me with cloud base
+Answer: Is 'cloud' what you looking for?
+Question: yes
+Answer: 
+Question: help me with cloud
+Answer: Is 'cloud' what you looking for?
+Question: yes
+Answer: 
+Question: help me please cloud
+Answer: Question: can you help me with cloud
+Answer: Is 'cloud' what you looking for?
+Question: yes
+Answer: 
+Question: yes
+Answer: 
+Question: yes
+Answer: 
+Question: can yo help me with neural neurons
+Answer: Is 'neural neurons' what you looking for?
+Question: help me with neural network
+Answer: Is 'neural network' what you looking for?
+Question: can you help me with neural neurons
+Answer: Is 'neural neurons' what you looking for?
+Question: help me with neural network
+Answer: Is 'neural network' what you looking for?
+Question: help me with neural network
+Answer: Is 'neural network' what you looking for?
+Question: help me with neural network
+Answer: Is 'neural network' what you looking for?
+Question: neurons
+Answer: 
+Question: help me with neurons
+Answer: Is 'neurons' what you looking for?
+Question: can you help me with neurons
+Answer: Is 'neurons' what you looking for?

@@ -1,0 +1,100 @@
+{
+  "intents": [
+    {
+      "tag": "greetings",
+      "patterns": [
+        "hello",
+        "hey",
+        "hi",
+        "good day",
+        "Greetings",
+        "what's up?",
+        "how is it going",
+        "bonjour",
+        "buenos dias",
+        "shalom",
+        "howdy-do",
+        "morning"
+      ],
+      "responses": [
+        "Hello! How can I help you today?",
+        "Hey my friend! Do you need help with any topic? ",
+        "Hi! What can I do for you?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye",
+        "good bye",
+        "have a good day",
+        "see ya",
+        "ciao",
+        "cya",
+        "Take care",
+        "Talk to you later",
+        "must be going",
+        "Take it easy",
+        "off",
+        "Goodnight",
+        "see you later"
+      ],
+      "responses": [
+        "Sad to see you go :(",
+        "Goodbye!",
+        "Bye Bye"
+      ]
+    },
+    {
+      "tag": "name",
+      "patterns": [
+        "your name",
+        "what should I call you",
+        "who are you",
+        "can you tell me your name"
+      ],
+      "responses": [
+        "My name is Neurogram",
+        "I'm a Neurogram!",
+        "I'm Neurogram, the teaching assistant!"
+      ]
+    },
+    {
+      "tag": "help",
+      "patterns": [
+        "can you help me",
+        "i need some help",
+        "I need some assistance",
+        "Will you help me",
+        "Could you give me a hand",
+        "Could you hold that",
+        "I need your support",
+        "Would you mind helping me",
+        "Will you do me a favour",
+        "i'm stuck"
+      ],
+      "responses": ""
+    },
+    {
+      "tag": "age",
+      "patterns": [
+        "How old are you",
+        "your age"
+      ],
+      "responses": [
+        "I'm few days old. These are my first days as a teacher assistant",
+        "I'm not as old as you are yet."
+      ]
+    },
+     {
+      "tag": "possibilities",
+      "patterns": [
+        "What you can?",
+        "What you know?"
+      ],
+      "responses": [
+        "I am a teacher assistant. I can help you with your study!"
+      ]
+    }
+  ]
+}
