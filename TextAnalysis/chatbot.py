@@ -26,10 +26,10 @@ from nltk.stem import WordNetLemmatizer
 # function to load the model that been created in the training script
 from tensorflow.keras.models import load_model
 
-# nltk.download('punkt')
-# nltk.download('wordnet')
-# nltk.download('omw-1.4')
-# nltk.download('vader_lexicon')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+nltk.download('vader_lexicon')
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
