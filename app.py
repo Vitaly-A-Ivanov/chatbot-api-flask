@@ -15,7 +15,9 @@ def run():
     topicFound = request.args.get('topicFound')
     fileSubmit = request.args.get('fileSubmit')
     classifiedMsg = request.args.get('classifiedMsg')
-    return chatbot.run(message, readySubmit, topicFound, fileSubmit, classifiedMsg)
+    topicSelected = request.args.get('topicSelected')
+    topicFinal = request.args.get('topicFinal')
+    return chatbot.run(message, readySubmit, topicFound, fileSubmit, classifiedMsg, topicSelected, topicFinal)
 
 
 if __name__ == '__main__':

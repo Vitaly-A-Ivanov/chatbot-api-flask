@@ -90,8 +90,12 @@ def get_response(intents_list, intents_json):
     return result
 
 
-def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg):
+def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal):
     res = dict()
+    topicToSearchOnline = topicFinal
+    res['topicFinal'] = topicToSearchOnline
+    topicChosen = topicSelected
+    res['topicSelected'] = topicChosen
     topicFound = topicWasFound  # helps to avoid repetition of predictions from the intents.json
     res['topicFound'] = topicFound
     readyToSubmit = readySubmit  # helps to identify when user accept or not the topic which he wants to look in a
@@ -151,42 +155,15 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg):
             res['readySubmit'] = readyToSubmit
             return res
         else:
-            if readyToSubmit == 'False' or fileSubmitted == 'False':
+            if readyToSubmit == 'False':
                 sid = SentimentIntensityAnalyzer()
                 sentiment_score = sid.polarity_scores(message)
 
                 if sentiment_score['pos'] > 0.6:
-                    if fileSubmitted:
-                        fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',
-                                                                       classifiedMessage)
-                        if not fileAnalysisResults:
-                            res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
-                                                                                                    'file! ' \
-                                                                                                    'Please ' \
-                                                                                                    'try again '
-                            'with your '
-                            'search!'
-                            topicFound = 'False'
-                            res['topicFound'] = topicFound
-                            readyToSubmit = 'False'
-                            res['readySubmit'] = readyToSubmit
-                            return res
-                        else:
-                            # will need to return the user's selected topic as a string
-                            topic = elsie.main(fileAnalysisResults)
-                            res['resource'] = rg.get_resources(topic)
-                            res['response'] = "Do you need any more help?"
-                            topicFound = 'False'
-                            res['topicFound'] = topicFound
-                            readyToSubmit = 'False'
-                            res['readySubmit'] = readyToSubmit
-                            return res
-                    else:
-                        readyToSubmit = 'True'
-                        res['readySubmit'] = readyToSubmit
-                        res['response'] = "Provide the file please"
-                        return res
-
+                    readyToSubmit = 'True'
+                    res['readySubmit'] = readyToSubmit
+                    res['response'] = "Provide the file please"
+                    return res
                 if sentiment_score['neg'] > 0.6:
                     topicFound = 'False'
                     res['topicFound'] = topicFound
@@ -195,6 +172,42 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg):
                 if sentiment_score['neu'] > 0.6:
                     res['response'] = 'So, yes or no?'
                     return res
+
+            if fileSubmitted == 'True':
+                if topicChosen == 'False':
+                    #TODO doesnt accept neurone (only neuorns)
+                    fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',
+                                                                   classifiedMessage)
+                    if not fileAnalysisResults:
+                        res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
+                                                                                                'file! ' \
+                                                                                                'Please ' \
+                                                                                                'try again '
+                        'with your '
+                        'search!'
+                        topicFound = 'False'
+                        res['topicFound'] = topicFound
+                        readyToSubmit = 'False'
+                        res['readySubmit'] = readyToSubmit
+                        return res
+                    else:
+                        if topicChosen == 'False':
+                            # possibleTopics = elsie.main(fileAnalysisResults) TODO Spyros, its your fuction to replace   (line underneath is for my testing only)
+                            possibleTopics = ['point neurons', 'simulated neurons', 'spiking neurons']
+                            res['possibleTopics'] = possibleTopics
+                            res['response'] = 'Please select the most relevant topic for your query now'
+                            return res
+                else:
+                    res['resource'] = rg.get_resources(topicToSearchOnline)
+                    res['response'] = "Do you need any more help?"
+                    topicFound = 'False'
+                    res['topicFound'] = topicFound
+                    readyToSubmit = 'False'
+                    res['readySubmit'] = readyToSubmit
+                    topicChosen = 'False'
+                    res['topicSelected'] = topicChosen
+                    return res
+
             else:
                 topicFound = 'False'
                 res['topicFound'] = topicFound
