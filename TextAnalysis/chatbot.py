@@ -134,9 +134,12 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg):
                     topicFound = 'True'
                     res['topicFound'] = topicFound
                     classifiedMessage = userInput.classify()
-                    res['classifiedMsg'] = classifiedMessage
-                    res['response'] = "Is '" + classifiedMessage + "' what you looking for?"
-                    break
+                    if classifiedMessage:
+                        res['classifiedMsg'] = classifiedMessage
+                        res['response'] = "Is '" + classifiedMessage + "' what you looking for?"
+                    else:
+                        res['response'] = "I am not really sure what You looking for. Can you be more specific"
+                        break
                 elif float(i['probability']) < 0.8:
                     res['topicFound'] = topicFound
                     res['response'] = random.choice(notKnownResponses)
@@ -166,7 +169,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg):
                             topicFound = 'False'
                             res['topicFound'] = topicFound
                             readyToSubmit = 'False'
-                            res['readyToSubmit'] = readyToSubmit
+                            res['readySubmit'] = readyToSubmit
                             return res
                         else:
                             # will need to return the user's selected topic as a string
@@ -176,11 +179,11 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg):
                             topicFound = 'False'
                             res['topicFound'] = topicFound
                             readyToSubmit = 'False'
-                            res['readyToSubmit'] = readyToSubmit
+                            res['readySubmit'] = readyToSubmit
                             return res
                     else:
                         readyToSubmit = 'True'
-                        res['readyToSubmit'] = readyToSubmit
+                        res['readySubmit'] = readyToSubmit
                         res['response'] = "Provide the file please"
                         return res
 
@@ -198,4 +201,4 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg):
                 readyToSubmit = 'False'
                 res['readySubmit'] = readyToSubmit
                 res['response'] = 'Ok, you can ask me something again :}'
-                run(message)
+                return res
