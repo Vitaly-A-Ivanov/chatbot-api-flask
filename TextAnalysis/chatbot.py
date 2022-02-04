@@ -206,6 +206,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                     res['readySubmit'] = readyToSubmit
                     topicChosen = 'False'
                     res['topicSelected'] = topicChosen
+                    fileSubmitted = 'False'
+                    res['fileSubmit'] = fileSubmitted
                     return res
 
             else:
