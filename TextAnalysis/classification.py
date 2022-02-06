@@ -1,7 +1,14 @@
 import en_core_web_sm
+from spacy.matcher import DependencyMatcher
 
 # Load the model en_core_web_sm of English for vocabulary, syntax & entities
 classifier = en_core_web_sm.load()
+nlp = en_core_web_sm.load()
+
+stopwords = classifier.Defaults.stop_words
+
+## IMPORT MARK'S FUNCTIONS TO ITERATE THE ARRAY GIVER FROM THE FILE_ANALYSIS
+from TextAnalysis import FileAnalysis
 
 # Create an array for all the nouns in the input
 nouns = []
@@ -15,6 +22,9 @@ adjectives = []
 # Create an array to combine adjectives and nouns from the input
 chunks = []
 
+fileResults = []
+
+lemmatized_classifiedMessage = ""
 
 """"
 Create a class to initialise the user input and use classification
@@ -153,4 +163,134 @@ class classification:
         elif adjectives:
             return nouns[-1]
         else:
-            return
+            return None
+
+    def returnResultsFromMark(self):
+        # THE KEYWORD TO CHECK THE DOCUMENT
+        classifiedMessage = self.classify()
+
+        # UNFILTERED RESULTS OF THE DOCUMENT BASED ON THE KEYWORD
+        fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',
+                                                       classifiedMessage)
+
+        # SORT THE RESULTS
+        fileAnalysisResults.sort()
+
+        # LOWECASE THE RESULTS FOR BETTER ITERATION
+        for i in range(len(fileAnalysisResults)):
+            fileAnalysisResults[i] = fileAnalysisResults[i].lower()
+
+        return fileAnalysisResults, classifiedMessage
+
+    def taxonomy(self):
+        #  STORE THE SORTED VERSION FROM MARK'S FILE
+        results = self.returnResultsFromMark()
+
+        # print("UNFILTERED RESULTS: ", results[0])  # TODO remove this line after demo
+        # print("")
+
+        # GET THE KEYWORD FROM THE ARRAY
+        classifiedMessage = results[1]
+        # ADD META DATA TO KEYWORD WITH SPACY ENCODE
+        classifiedMessage = nlp(classifiedMessage)
+
+        # LEMMATIZE THE KEYWORD FOR BETTER MATCH WITH THE RESULTS
+        lemmatized_classifiedMessage = " ".join([token.lemma_ for token in classifiedMessage])
+
+        # print("LEMMATIZED USER INPUT: ",
+        #       lemmatized_classifiedMessage)  # TODO remove this line after demo
+        # print("")
+
+        # LIST TO HOLD THE FILTERED RESULTS
+        filtered_lemmatized_sentence = []
+
+        # LIST TO HOLD THE FILTERED RESULTS AFTER LEMMATIZATION
+        filtered_lemmatized_sentence_after_lemma = []
+
+        # FOR EACH SENTENCE CREATES A NEW VERSION OF THE SENTENCE WITH THE ROOT WORDS
+        for text in range(len(results[0])):
+            sentence = classifier(results[0][text])
+            lemmatized_sentence = ""
+            for word in sentence:
+                lemmatized_sentence = lemmatized_sentence + " " + word.lemma_
+
+            # ADD THE NEW LEMMATIZED SENTENCE IN THE LIST
+            filtered_lemmatized_sentence.append(lemmatized_sentence)
+
+        # print("LEMMATIZED SENTENCES: ", filtered_lemmatized_sentence)  # TODO remove this line after demo
+        # print("")
+
+        # CREATE NOUN CHUNCKS FROM THE SENTENCES
+        for text in range(len(filtered_lemmatized_sentence)):
+            sentence = classifier(filtered_lemmatized_sentence[text])
+
+            # DIVIDE THE SENTENCE INTO CHUNKS AND APPENDED TO THE LIST
+            filtered_lemmatized_sentence_after_lemma.append((list(sentence.noun_chunks)))
+
+        # SORT THE LIST
+        filtered_lemmatized_sentence_after_lemma.sort()
+        # print("NOUN CHUNCKS: ", filtered_lemmatized_sentence_after_lemma)  # TODO remove this line after demo
+        # print("")
+
+        # CREATE CHUNCKS OF WORDS RELATED TO THE KEYWORD
+        chuncks_related_to_keyword = []
+
+        # ITERATE THE LEMMATIZED LIST
+        for row in filtered_lemmatized_sentence_after_lemma:
+
+            # CHECK IF THE KEYWORD ARREARS IN THE CHUNCK
+            for chunck in row:
+                if lemmatized_classifiedMessage in str(chunck):
+                    chuncks_related_to_keyword.append(chunck)
+
+        # print("CHUNCKS WITH THE KEYWORD INCLUDED", chuncks_related_to_keyword)  # TODO remove this line after demo
+
+        # LIST TO HOLD THE CHUNCKS WITH THE RELATED KEYWORD WITHOUT DUPLICATES
+        list_without_duplicates = []
+
+        # CHECK FOR COMBINATIONS OF ( ADJECTIVE + NOUN ) OR ( NOUN + NOUN ) AND IGNORE RANDOM WORDS
+        for occurrence in chuncks_related_to_keyword:
+
+            chuncks_related_to_keyword_chunck = ""
+            chuncks_related_to_keyword_adj = ""
+            chuncks_related_to_keyword_noun = ""
+            chuncks_related_to_keyword_second_noun = ""
+
+            for word in occurrence:
+                if word.pos_ == "ADJ":
+                    chuncks_related_to_keyword_adj = word.text
+                if word.pos_ == "NOUN":
+                    chuncks_related_to_keyword_noun = word.text
+
+            # IF THERE IS A COMBO OF ( ADJECTIVE - NOUN ), JOIN THEM AND ADD INTO THE LIST
+            if chuncks_related_to_keyword_adj and chuncks_related_to_keyword_noun:
+                chuncks_related_to_keyword_chunck = \
+                    chuncks_related_to_keyword_adj + " " + chuncks_related_to_keyword_noun
+
+                list_without_duplicates.append(chuncks_related_to_keyword_chunck)
+
+            chuncks_related_to_keyword_noun = ""
+            chuncks_related_to_keyword_second_noun = ""
+
+            # IF THERE IS A COMBO OF ( NOUN - NOUN ), JOIN THEM AND ADD INTO THE LIST
+            for word in occurrence:
+                if word.pos_ == "NOUN":
+                    if not chuncks_related_to_keyword_noun:
+                        chuncks_related_to_keyword_noun = word.text
+                if word.pos_ == "NOUN":
+                    if word.text not in chuncks_related_to_keyword_noun:
+                        chuncks_related_to_keyword_second_noun = word.text
+
+            if chuncks_related_to_keyword_noun and chuncks_related_to_keyword_second_noun:
+                chuncks_related_to_keyword_chunck = \
+                    chuncks_related_to_keyword_noun + " " + chuncks_related_to_keyword_second_noun
+
+                list_without_duplicates.append(chuncks_related_to_keyword_chunck)
+
+        # FINAL SORT
+        list_without_duplicates.sort()
+        # REMOVE DUPLICATE OCCURRENCES
+        list_without_duplicates = list(dict.fromkeys(list_without_duplicates))
+
+        # RETURNED LIST WILL DISPLAYED TO THE USER
+        return list_without_duplicates
