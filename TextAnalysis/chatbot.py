@@ -131,6 +131,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
         return res
 
     else:
+
         if topicFound == 'False':
             ints = predict_class(message)
             for i in ints:
