@@ -165,26 +165,26 @@ class classification:
         else:
             return None
 
-    def returnResultsFromMark(self):
+    def returnResultsFromMark(self, results, keyword):
         # THE KEYWORD TO CHECK THE DOCUMENT
-        classifiedMessage = self.classify()
-
-        # UNFILTERED RESULTS OF THE DOCUMENT BASED ON THE KEYWORD
-        fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',
-                                                       classifiedMessage)
+        keyword = self.classify()
+        #
+        # # UNFILTERED RESULTS OF THE DOCUMENT BASED ON THE KEYWORD
+        # fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',
+        #                                                classifiedMessage)
 
         # SORT THE RESULTS
-        fileAnalysisResults.sort()
+        results.sort()
 
         # LOWECASE THE RESULTS FOR BETTER ITERATION
-        for i in range(len(fileAnalysisResults)):
-            fileAnalysisResults[i] = fileAnalysisResults[i].lower()
+        for i in range(len(results)):
+            results[i] = results[i].lower()
 
-        return fileAnalysisResults, classifiedMessage
+        return results, keyword
 
-    def taxonomy(self):
+    def taxonomy(self, results):
         #  STORE THE SORTED VERSION FROM MARK'S FILE
-        results = self.returnResultsFromMark()
+        # results = self.returnResultsFromMark()
 
         # print("UNFILTERED RESULTS: ", results[0])  # TODO remove this line after demo
         # print("")
@@ -294,3 +294,11 @@ class classification:
 
         # RETURNED LIST WILL DISPLAYED TO THE USER
         return list_without_duplicates
+
+
+    def returnResults(self):
+       array = self.returnResultsFromMark()
+
+       return self.taxonomy(array)
+
+

@@ -194,7 +194,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                     else:
                         if topicChosen == 'False':
                             # possibleTopics = elsie.main(fileAnalysisResults) TODO Spyros, its your fuction to replace   (line underneath is for my testing only)
-                            possibleTopics = ['point neurons', 'simulated neurons', 'spiking neurons']
+
+                            possibleTopics = classification.returnResults()
                             res['possibleTopics'] = possibleTopics
                             res['response'] = 'Please select the most relevant topic for your query now'
                             return res
