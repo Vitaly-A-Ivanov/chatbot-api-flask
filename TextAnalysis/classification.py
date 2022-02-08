@@ -166,8 +166,6 @@ class classification:
             return None
 
     def returnResultsFromMark(self, results, keyword):
-        # THE KEYWORD TO CHECK THE DOCUMENT
-        keyword = self.classify()
         #
         # # UNFILTERED RESULTS OF THE DOCUMENT BASED ON THE KEYWORD
         # fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',

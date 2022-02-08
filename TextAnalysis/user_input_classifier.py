@@ -20,6 +20,7 @@ while True:
     # print("Results in list as comes from Mark: ")
     # print(nlp.returnResultsFromMark())
 
-    # print(nlp.returnResultsFromMark())
-    print(nlp.taxonomy())
-    # nlp.clean_taxonony()
+    nlp.returnResultsFromMark()
+    nlp.taxonomy()
+    print(nlp.returnResults())
+
