@@ -1,4 +1,5 @@
 from classification import classification
+from TextAnalysis import FileAnalysis
 
 
 """
@@ -14,12 +15,10 @@ while True:
         break
 
     nlp = classification(user)
+    classifiedMessage = nlp.classify()
+    fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',
+                                                   classifiedMessage)
 
-    # print("users reference : '", nlp.classify(), "'")
-    # print("")
-    # print("Results in list as comes from Mark: ")
-    # print(nlp.returnResultsFromMark())
+    # results = nlp.returnResultsFromMark(fileAnalysisResults, classifiedMessage)
+    print(nlp.returnResults(fileAnalysisResults, classifiedMessage))
 
-    # print(nlp.returnResultsFromMark())
-    print(nlp.taxonomy())
-    # nlp.clean_taxonony()
