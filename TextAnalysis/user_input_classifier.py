@@ -20,5 +20,5 @@ while True:
                                                    classifiedMessage)
 
     # results = nlp.returnResultsFromMark(fileAnalysisResults, classifiedMessage)
-    print(nlp.returnResults(fileAnalysisResults, classifiedMessage))
-
+    possibleTopics = nlp.returnResults(fileAnalysisResults, classifiedMessage)
+    print(possibleTopics)

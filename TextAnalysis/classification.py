@@ -181,11 +181,6 @@ class classification:
         return results, keyword
 
     def taxonomy(self, results):
-        #  STORE THE SORTED VERSION FROM MARK'S FILE
-        # results = self.returnResultsFromMark()
-
-        # print("UNFILTERED RESULTS: ", results[0])  # TODO remove this line after demo
-        # print("")
 
         # GET THE KEYWORD FROM THE ARRAY
         classifiedMessage = results[1]
@@ -194,10 +189,6 @@ class classification:
 
         # LEMMATIZE THE KEYWORD FOR BETTER MATCH WITH THE RESULTS
         lemmatized_classifiedMessage = " ".join([token.lemma_ for token in classifiedMessage])
-
-        # print("LEMMATIZED USER INPUT: ",
-        #       lemmatized_classifiedMessage)  # TODO remove this line after demo
-        # print("")
 
         # LIST TO HOLD THE FILTERED RESULTS
         filtered_lemmatized_sentence = []
@@ -215,9 +206,6 @@ class classification:
             # ADD THE NEW LEMMATIZED SENTENCE IN THE LIST
             filtered_lemmatized_sentence.append(lemmatized_sentence)
 
-        # print("LEMMATIZED SENTENCES: ", filtered_lemmatized_sentence)  # TODO remove this line after demo
-        # print("")
-
         # CREATE NOUN CHUNCKS FROM THE SENTENCES
         for text in range(len(filtered_lemmatized_sentence)):
             sentence = classifier(filtered_lemmatized_sentence[text])
@@ -227,8 +215,6 @@ class classification:
 
         # SORT THE LIST
         filtered_lemmatized_sentence_after_lemma.sort()
-        # print("NOUN CHUNCKS: ", filtered_lemmatized_sentence_after_lemma)  # TODO remove this line after demo
-        # print("")
 
         # CREATE CHUNCKS OF WORDS RELATED TO THE KEYWORD
         chuncks_related_to_keyword = []
@@ -240,8 +226,6 @@ class classification:
             for chunck in row:
                 if lemmatized_classifiedMessage in str(chunck):
                     chuncks_related_to_keyword.append(chunck)
-
-        # print("CHUNCKS WITH THE KEYWORD INCLUDED", chuncks_related_to_keyword)  # TODO remove this line after demo
 
         # LIST TO HOLD THE CHUNCKS WITH THE RELATED KEYWORD WITHOUT DUPLICATES
         list_without_duplicates = []
