@@ -193,9 +193,10 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         return res
                     else:
                         if topicChosen == 'False':
-                            # possibleTopics = elsie.main(fileAnalysisResults) TODO Spyros, its your fuction to replace   (line underneath is for my testing only)
+                            # possibleTopics = elsie.main(fileAnalysisResults) TODO Spyros, its your fuction to
+                            #  replace   (line underneath is for my testing only)
 
-                            possibleTopics = classification.returnResults(fileAnalysisResults, classifiedMessage)
+                            possibleTopics = classification.returnResults(userInput, fileAnalysisResults, classifiedMessage)
                             res['possibleTopics'] = possibleTopics
                             res['response'] = 'Please select the most relevant topic for your query now'
                             return res
