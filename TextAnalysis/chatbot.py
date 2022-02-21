@@ -122,6 +122,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                          'I’m confused. Could you tell me again?',
                          'I’m sorry, I didn’t understand. Could you repeat a little louder, please?',
                          'I didn’t hear you. Please could you tell me again?']
+    
     m = message
     message = m.lower()
     userInput = classification(message)
