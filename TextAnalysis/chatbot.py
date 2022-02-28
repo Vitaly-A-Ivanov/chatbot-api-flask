@@ -91,21 +91,34 @@ def get_response(intents_list, intents_json):
 
 
 def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file):
+    # chatbot response
     res = dict()
+
+    # final topic name to be sent online to search
     topicToSearchOnline = topicFinal
     res['topicFinal'] = topicToSearchOnline
+
+    # flag to help chatbot to identify if user chose his topic or not
     topicChosen = topicSelected
     res['topicSelected'] = topicChosen
-    topicFound = topicWasFound  # helps to avoid repetition of predictions from the intents.json
+
+    # flag to avoid repetition of predictions from the intents.json
+    topicFound = topicWasFound
     res['topicFound'] = topicFound
-    readyToSubmit = readySubmit  # helps to identify when user accept or not the topic which he wants to look in a
-    # text file
-    # before submitting it
+
+    # flag to identify when user accept or not the topic which he wants to look in a text file before submitting it
+    readyToSubmit = readySubmit
     res['readySubmit'] = readyToSubmit
-    fileSubmitted = fileSubmit  # helps to identify if the user upload the file or not
+
+    # flag to identify if the user upload the file or not
+    fileSubmitted = fileSubmit
     res['fileSubmit'] = fileSubmitted
+
+    # path for a submitted file
     fileUploaded = file
     res['fileUploaded'] = file
+
+    # user message
     classifiedMessage = classifiedMsg
     res['classifiedMsg'] = classifiedMessage
 
