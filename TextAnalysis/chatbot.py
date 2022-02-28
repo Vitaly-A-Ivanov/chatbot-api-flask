@@ -90,7 +90,7 @@ def get_response(intents_list, intents_json):
     return result
 
 
-def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal):
+def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file):
     res = dict()
     topicToSearchOnline = topicFinal
     res['topicFinal'] = topicToSearchOnline
@@ -104,6 +104,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
     res['readySubmit'] = readyToSubmit
     fileSubmitted = fileSubmit  # helps to identify if the user upload the file or not
     res['fileSubmit'] = fileSubmitted
+    fileUploaded = file
+    res['fileUploaded'] = file
     classifiedMessage = classifiedMsg
     res['classifiedMsg'] = classifiedMessage
 
@@ -178,7 +180,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
             if fileSubmitted == 'True':
                 if topicChosen == 'False':
                     #TODO doesnt accept neurone (only neuorns)
-                    fileAnalysisResults = FileAnalysis.analyseFile('pdf_files/Individual Neurons.pdf',
+                    fileAnalysisResults = FileAnalysis.analyseFile(file,
                                                                    classifiedMessage)
                     if not fileAnalysisResults:
                         res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
