@@ -11,6 +11,7 @@ import numpy as np
 import os
 
 import nltk
+import ssl
 
 from TextAnalysis import FileAnalysis
 import TextAnalysis.UserInput as elsie
@@ -26,6 +27,12 @@ from nltk.stem import WordNetLemmatizer
 # function to load the model that been created in the training script
 from tensorflow.keras.models import load_model
 
+# try:
+#     _create_unverified_https_context = ssl._create_unverified_context
+# except AttributeError:
+#     pass
+# else:
+#     ssl._create_default_https_context = _create_unverified_https_context
 # nltk.download('punkt')
 # nltk.download('wordnet')
 # nltk.download('omw-1.4')
@@ -140,6 +147,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
     
     m = message
     message = m.lower()
+    res['message'] = message
     userInput = classification(message)
 
     if not message:
@@ -172,7 +180,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
             res['readySubmit'] = readyToSubmit
             return res
         else:
-            if readyToSubmit == 'False':
+            if readyToSubmit == 'False' and fileSubmitted == 'False':
                 sid = SentimentIntensityAnalyzer()
                 sentiment_score = sid.polarity_scores(message)
 
@@ -189,10 +197,14 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                 if sentiment_score['neu'] > 0.6:
                     res['response'] = 'So, yes or no?'
                     return res
+            if fileSubmitted == 'False':
+                res['response'] = "Provide the file please"
+                return res
 
             if fileSubmitted == 'True':
+                readyToSubmit = 'False'
+                res['readySubmit'] = readyToSubmit
                 if topicChosen == 'False':
-                    #TODO doesnt accept neurone (only neuorns)
                     fileAnalysisResults = FileAnalysis.analyseFile(file,
                                                                    classifiedMessage)
                     if not fileAnalysisResults:
@@ -209,10 +221,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         return res
                     else:
                         if topicChosen == 'False':
-                            # possibleTopics = elsie.main(fileAnalysisResults) TODO Spyros, its your fuction to
-                            #  replace   (line underneath is for my testing only)
-
-                            possibleTopics = classification.returnResults(userInput, fileAnalysisResults, classifiedMessage)
+                            possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
+                                                                          classifiedMessage)
                             res['possibleTopics'] = possibleTopics
                             res['response'] = 'Please select the most relevant topic for your query now'
                             return res
