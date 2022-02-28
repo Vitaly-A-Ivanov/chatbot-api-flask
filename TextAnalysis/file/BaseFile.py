@@ -259,15 +259,15 @@ class BaseFile(ABC):
         """
 
         if uri != None:
-            print(os.getcwd())
             try:
                 url = "https://chat-bot-educ.herokuapp.com/pdf/" + urllib.parse.quote(uri)
                 #url = "http://localhost:8000/pdf/" + urllib.parse.quote(file)
-                filePath = os.path.abspath("TextAnalysis/pdf_files/" + uri)
+                filePath = os.path.abspath("pdf_files/" + uri)
                 urllib.request.urlretrieve(url, filePath)
 
                 return filePath
-            except:
+            except Exception as e:
+                print(e)
                 pass
         
         return None
