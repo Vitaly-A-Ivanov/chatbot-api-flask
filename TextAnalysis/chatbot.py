@@ -208,6 +208,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                     fileAnalysisResults = FileAnalysis.analyseFile(file,
                                                                    classifiedMessage)
                     if not fileAnalysisResults:
+                        if isinstance(fileAnalysisResults, list):
+                            res['possibleTopics'] = []
+                            
                         res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
                                                                                                 'file! ' \
                                                                                                 'Please ' \
