@@ -1,5 +1,8 @@
 import os
 from TextAnalysis import chatbot
+from TextAnalysis.file.BaseFile import BaseFile
+
+
 
 from flask import Flask
 from flask import request
@@ -18,6 +21,7 @@ def run():
     topicSelected = request.args.get('topicSelected')
     topicFinal = request.args.get('topicFinal')
     file = request.args.get('file')
+    
     return chatbot.run(message, readySubmit, topicFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file)
 
 
