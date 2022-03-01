@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 app.config["UPLOAD_FOLDER"] = "pdf_files"
 
-CORS(app, resources={r"/upload/pdf": {"origins": "*"}})
+CORS(app, origins=["https://chat-bot-educ.herokuapp.com/*"])
 
 
 @app.route('/', methods=['GET'])
