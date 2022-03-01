@@ -171,19 +171,17 @@ class FileAnalysis:
 
 
 
-def analyseFile(uri: str, keywords: str) -> Union[list[str], None]:
+def analyseFile(filePath: str, keywords: str) -> Union[list[str], None]:
     """
     Analyses the file at the given path for 'sentences' containing any of the given keyword(s).
 
-    :param uri: The uri of the file to download and analyse.
+    :param filePath: The path of the file to analyse.
     :param keywords: The keyword(s) to find (can be a regular string or a regex string).
     :return: The list of 'sentences' containing the keyword(s), or None if a file couldn't be found at the given path.
     """
 
-    filePath = BaseFile.downloadFile(uri)
-
     # If no file was found
-    if not filePath:
+    if not BaseFile.isFile(filePath):
         print("File Not Found!")
 
         return None

@@ -248,26 +248,3 @@ class BaseFile(ABC):
         """
 
         return isinstance(mode, str) and (mode.lower() in BaseFile.__MODES)
-    
-    @staticmethod
-    def downloadFile(uri: str) -> Union[str, None]:
-        """
-        Download the file from the given URI.
-
-        :param uri: The uri of the file to download
-        :return: The file path of the downloaded file, or None if the uri does not exist.
-        """
-
-        if uri != None:
-            try:
-                url = "https://chat-bot-educ.herokuapp.com/pdf/" + urllib.parse.quote(uri)
-                #url = "http://localhost:8000/pdf/" + urllib.parse.quote(file)
-                filePath = os.path.abspath("pdf_files/" + uri)
-                urllib.request.urlretrieve(url, filePath)
-
-                return filePath
-            except Exception as e:
-                print(e)
-                pass
-        
-        return None
