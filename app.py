@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 app.config["UPLOAD_FOLDER"] = "pdf_files"
 
-CORS(app, resources=r"/upload/pdf")
+CORS(app, resources={r"/upload/pdf": {"origins": "*"}})
 
 
 @app.route('/', methods=['GET'])
