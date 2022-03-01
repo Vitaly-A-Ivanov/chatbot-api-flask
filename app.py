@@ -7,13 +7,13 @@ from TextAnalysis.file.BaseFile import BaseFile
 from flask import Flask
 from flask import request
 from flask import url_for
-#from flask_cors import CORS
-#from werkzeug.utils import secure_filename
+from flask_cors import CORS
+from werkzeug.utils import secure_filename
 
 # create and configure the app
 app = Flask(__name__)
 
-#app.config["UPLOAD_FOLDER"] = "pdf_files"
+app.config["UPLOAD_FOLDER"] = "pdf_files"
 
 #CORS(app, resources=r"/upload/pdf")
 
