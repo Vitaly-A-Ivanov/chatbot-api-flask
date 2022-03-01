@@ -6,7 +6,7 @@ from TextAnalysis.file.BaseFile import BaseFile
 
 from flask import Flask
 from flask import request
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
 
 # create and configure the app
@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 app.config["UPLOAD_FOLDER"] = "pdf_files"
 
-CORS(app, origins=["https://chat-bot-educ.herokuapp.com/*"])
+#CORS(app, origins=["https://chat-bot-educ.herokuapp.com/*"])
 
 
 @app.route('/', methods=['GET'])
@@ -32,6 +32,8 @@ def run():
 
 
 @app.route("/upload/pdf", methods=["GET", "POST"])
+@cross_origin(origins=["http://192.168.0.50/*","https://chat-bot-educ.herokuapp.com/*"],
+              headers=["access-control-allow-origin", "Content-Type"])
 def uploadPDF() -> str:
     """
     Saves the uploaded PDF file uploaded via POST.
