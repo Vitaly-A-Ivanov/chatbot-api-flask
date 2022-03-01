@@ -6,6 +6,7 @@ from TextAnalysis.file.BaseFile import BaseFile
 
 from flask import Flask
 from flask import request
+from flask import jsonify
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
 
@@ -14,8 +15,9 @@ app = Flask(__name__)
 
 app.config["UPLOAD_FOLDER"] = "pdf_files"
 
-#CORS(app, origins=["https://chat-bot-educ.herokuapp.com/*"])
 CORS(app)
+
+origin = "https://chat-bot-educ.herokuapp.com/"
 
 
 @app.route('/', methods=['GET'])
@@ -33,9 +35,6 @@ def run():
 
 
 @app.route("/upload/pdf", methods=["GET", "POST"])
-#@cross_origin(origins=["https://chat-bot-educ.herokuapp.com/*"],
-#              headers=["access-control-allow-origin", "Content-Type"])
-@cross_origin()
 def uploadPDF() -> str:
     """
     Saves the uploaded PDF file uploaded via POST.
@@ -45,6 +44,8 @@ def uploadPDF() -> str:
 
     :return: The file path, or an empty string.
     """
+
+    response = None
 
     if request.method == "POST":
         try:
@@ -56,11 +57,16 @@ def uploadPDF() -> str:
                 
                 file.save(path)
             
-                return path
+                response = jsonify({'file': path})
         except Exception as e:
             print(e)
 
-    return ""
+    if response == None:
+        response = jsonify({})
+    
+    response.headers.add('Access-Control-Allow-Origin', origin)
+
+    return response
 
 
 def toUploadFilePath(filename: str) -> str:
