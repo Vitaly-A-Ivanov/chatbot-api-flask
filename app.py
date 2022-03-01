@@ -4,14 +4,16 @@ from TextAnalysis.file.BaseFile import BaseFile
 
 
 
-from flask import Flask, request, url_for
+from flask import Flask
+from flask import request
+from flask import url_for
 #from flask_cors import CORS
 #from werkzeug.utils import secure_filename
 
 # create and configure the app
 app = Flask(__name__)
 
-app.config["UPLOAD_FOLDER"] = "pdf_files"
+#app.config["UPLOAD_FOLDER"] = "pdf_files"
 
 #CORS(app, resources=r"/upload/pdf")
 
@@ -30,32 +32,32 @@ def run():
     return chatbot.run(message, readySubmit, topicFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file)
 
 
-@app.route("/upload/pdf", methods=["GET", "POST"])
-def uploadPDF() -> str:
-    """
-    Saves the uploaded PDF file uploaded via POST.
-
-    If no file was sent, the file is not a PDF, an error occurred, or the request method is not
-    POST, an empty string will be returned.
-
-    :return: The file path, or an empty string.
-    """
-
-    if request.method == "POST":
-        try:
-            file = request.files["pdf"]
-
-            # If the file is a PDF
-            if file.mimetype == "application/pdf":
-                path = toAvailableUploadFilePath(file.filename)
-                
-                file.save(path)
-            
-                return path
-        except Exception as e:
-            print(e)
-
-    return ""
+##@app.route("/upload/pdf", methods=["GET", "POST"])
+##def uploadPDF() -> str:
+##    """
+##    Saves the uploaded PDF file uploaded via POST.
+##
+##    If no file was sent, the file is not a PDF, an error occurred, or the request method is not
+##    POST, an empty string will be returned.
+##
+##    :return: The file path, or an empty string.
+##    """
+##
+##    if request.method == "POST":
+##        try:
+##            file = request.files["pdf"]
+##
+##            # If the file is a PDF
+##            if file.mimetype == "application/pdf":
+##                path = toAvailableUploadFilePath(file.filename)
+##                
+##                file.save(path)
+##            
+##                return path
+##        except Exception as e:
+##            print(e)
+##
+##    return ""
 
 
 ##def toUploadFilePath(filename: str) -> str:
