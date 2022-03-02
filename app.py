@@ -3,7 +3,6 @@ from TextAnalysis import chatbot
 from TextAnalysis.file.BaseFile import BaseFile
 
 
-
 from flask import Flask
 from flask import request
 from flask import jsonify
