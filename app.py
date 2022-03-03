@@ -16,8 +16,6 @@ app.config["UPLOAD_FOLDER"] = "pdf_files"
 
 CORS(app)
 
-origin = "https://chat-bot-educ.herokuapp.com/"
-
 
 @app.route('/', methods=['GET'])
 def run():
@@ -63,7 +61,7 @@ def uploadPDF() -> str:
     if response == None:
         response = jsonify({})
     
-    response.headers.add('Access-Control-Allow-Origin', origin)
+    response.headers.add('Access-Control-Allow-Origin', "*")
 
     return response
 
