@@ -198,6 +198,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                     readyToSubmit = 'False'
                     res['readySubmit'] = readyToSubmit
                     res['topicFound'] = topicFound
+                    classifiedMessage = ''
+                    res['classifiedMsg'] = classifiedMessage
                     res['response'] = 'OK, ask me something else again...'
                     return res
                 if sentiment_score['neu'] > 0.6:
