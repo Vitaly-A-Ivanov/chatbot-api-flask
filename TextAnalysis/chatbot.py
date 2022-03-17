@@ -167,13 +167,17 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         res['classifiedMsg'] = classifiedMessage
                         res['response'] = "Is '" + classifiedMessage + "' what you looking for?"
                     else:
+                        topicFound = 'False'
+                        res['topicFound'] = topicFound
                         res['response'] = "I am not really sure what You looking for. Can you be more specific"
                         break
                 elif float(i['probability']) < 0.8:
+                    topicFound = 'False'
                     res['topicFound'] = topicFound
                     res['response'] = random.choice(notKnownResponses)
                     break
                 else:
+                    topicFound = 'False'
                     res['topicFound'] = topicFound
                     res['response'] = get_response(ints, intents)
                     break
@@ -191,10 +195,14 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                     return res
                 if sentiment_score['neg'] > 0.6:
                     topicFound = 'False'
+                    readyToSubmit = 'False'
+                    res['readySubmit'] = readyToSubmit
                     res['topicFound'] = topicFound
                     res['response'] = 'OK, ask me something else again...'
                     return res
                 if sentiment_score['neu'] > 0.6:
+                    readyToSubmit = 'False'
+                    res['readySubmit'] = readyToSubmit
                     res['response'] = 'So, yes or no?'
                     return res
             if fileSubmitted == 'False':
@@ -221,6 +229,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         res['topicFound'] = topicFound
                         readyToSubmit = 'False'
                         res['readySubmit'] = readyToSubmit
+                        fileSubmitted == 'False'
+                        res['fileSubmit'] = fileSubmitted
                         return res
                     else:
                         if topicChosen == 'False':
