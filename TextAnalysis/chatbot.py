@@ -97,7 +97,7 @@ def get_response(intents_list, intents_json):
     return result
 
 
-def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file):
+def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources):
     # chatbot response
     res = dict()
 
@@ -128,6 +128,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
     # user message
     classifiedMessage = classifiedMsg
     res['classifiedMsg'] = classifiedMessage
+
+    resource = webResources
+    res['resource'] = resource
 
     emptyInputResponses = ['Please enter something first... :)',
                            'You did not write anything! Try again!',
