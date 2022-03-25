@@ -157,11 +157,17 @@ class classification:
 
         self.text_lemmatizer()
         if chunks:
-            return chunks[-1]
+            oldChunks = chunks.copy()
+            chunks.clear()
+            return oldChunks[-1]
         elif nouns:
-            return nouns[-1]
+            oldNouns = nouns.copy()
+            nouns.clear()
+            return oldNouns[-1]
         elif adjectives:
-            return nouns[-1]
+            oldAdjectives = adjectives.copy()
+            adjectives.clear()
+            return oldAdjectives[-1]
         else:
             return None
 
