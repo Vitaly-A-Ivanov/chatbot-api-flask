@@ -49,6 +49,8 @@ intents = json.loads(open('intents.json').read())
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
 model = load_model('chatbotmodel.h5')
+# chatbot response
+res = dict()
 
 
 # function for cleaning up the sentences
@@ -97,10 +99,23 @@ def get_response(intents_list, intents_json):
     return result
 
 
-def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources):
-    # chatbot response
-    res = dict()
+def clearAllFlags():
+    topicFound = 'False'
+    res['topicFound'] = topicFound
+    readyToSubmit = 'False'
+    res['readySubmit'] = readyToSubmit
+    topicChosen = 'False'
+    res['topicSelected'] = topicChosen
+    fileSubmitted = 'False'
+    res['fileSubmit'] = fileSubmitted
+    classifiedMessage = ''
+    res['classifiedMsg'] = classifiedMessage
+    fileAnalysed = 'False'
+    res['fileAnalysed'] = fileAnalysed
 
+
+def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources,
+        analysedFile, providedResources):
     # final topic name to be sent online to search
     topicToSearchOnline = topicFinal
     res['topicFinal'] = topicToSearchOnline
@@ -132,6 +147,12 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
     resource = webResources
     res['resource'] = resource
 
+    fileAnalysed = analysedFile
+    res['fileAnalysed'] = fileAnalysed
+
+    resourcesProvided = providedResources
+    res['resourcesProvided'] = resourcesProvided
+
     emptyInputResponses = ['Please enter something first... :)',
                            'You did not write anything! Try again!',
                            'Are you joking? I am not so silly, as you may think!',
@@ -147,7 +168,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                          'I’m confused. Could you tell me again?',
                          'I didn’t understand. Could you repeat a little louder?',
                          'I didn’t get you. Could you tell me again?']
-    
+
     m = message
     message = m.lower()
     res['message'] = message
@@ -215,15 +236,13 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                 return res
 
             if fileSubmitted == 'True':
-                readyToSubmit = 'False'
-                res['readySubmit'] = readyToSubmit
-                if topicChosen == 'False':
+                if fileAnalysed == 'False':
                     fileAnalysisResults = FileAnalysis.analyseFile(file,
                                                                    classifiedMessage)
                     if not fileAnalysisResults:
                         if isinstance(fileAnalysisResults, list):
                             res['possibleTopics'] = []
-                            
+
                         res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
                                                                                                 'file! ' \
                                                                                                 'Try again '
@@ -237,31 +256,38 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         res['fileSubmit'] = fileSubmitted
                         return res
                     else:
-                        if topicChosen == 'False':
-                            possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
-                                                                          classifiedMessage)
-                            res['possibleTopics'] = possibleTopics
-                            res['response'] = 'Select the most relevant topic for your query'
-                            return res
+                        possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
+                                                                      classifiedMessage)
+                        res['possibleTopics'] = possibleTopics
+                        res['response'] = 'Select the most relevant topic for your query'
+                        fileAnalysed = 'True'
+                        res['fileAnalysed'] = fileAnalysed
+                        return res
                 else:
-                    res['resource'] = rg.get_resources(topicToSearchOnline)
-                    res['response'] = "Do you need any more help?"
-                    topicFound = 'False'
-                    res['topicFound'] = topicFound
-                    readyToSubmit = 'False'
-                    res['readySubmit'] = readyToSubmit
-                    topicChosen = 'False'
-                    res['topicSelected'] = topicChosen
-                    fileSubmitted = 'False'
-                    res['fileSubmit'] = fileSubmitted
-                    classifiedMessage = ''
-                    res['classifiedMsg'] = classifiedMessage
-                    return res
+                    if resourcesProvided == 'False':
+                        res['resource'] = rg.get_resources(topicToSearchOnline)
+                        resourcesProvided = 'True'
+                        res['resourcesProvided'] = resourcesProvided
+                        res['response'] = "Do you need any more help?"
+                        return res
+                    else:
+                        sid = SentimentIntensityAnalyzer()
+                        sentiment_score = sid.polarity_scores(message)
+                        if sentiment_score['pos'] > 0.6:
+                            res['conversationFinished'] = "False"
+                            clearAllFlags()
+                            res['response'] = 'OK, ask me something else again...'
+                            return res
+                        if sentiment_score['neg'] > 0.6:
+                            res['conversationFinished'] = "True"
+                            res['response'] = 'Bye'
+                            clearAllFlags()
+                            return res
+                        if sentiment_score['neu'] > 0.6:
+                            res['response'] = 'So, yes or no?'
+                            return res
 
             else:
-                topicFound = 'False'
-                res['topicFound'] = topicFound
-                readyToSubmit = 'False'
-                res['readySubmit'] = readyToSubmit
+                clearAllFlags()
                 res['response'] = 'Ok, you can ask me something again :}'
                 return res

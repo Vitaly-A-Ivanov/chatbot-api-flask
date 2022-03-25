@@ -29,8 +29,11 @@ def run():
     topicFinal = request.args.get('topicFinal')
     file = request.args.get('file')
     webResources = request.args.get('resource')
+    analysedFile = request.args.get('fileAnalysed')
+    providedResources = request.args.get('resourcesProvided')
     
-    return chatbot.run(message, readySubmit, topicFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources)
+    return chatbot.run(message, readySubmit, topicFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file,
+                       webResources, analysedFile, providedResources)
 
 
 @app.route("/upload/pdf", methods=["GET", "POST"])
