@@ -9,6 +9,7 @@ from flask import jsonify
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
 
+
 # create and configure the app
 app = Flask(__name__)
 

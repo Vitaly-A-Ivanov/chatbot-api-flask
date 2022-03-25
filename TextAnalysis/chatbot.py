@@ -139,11 +139,11 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                          'Excuse me?',
                          'Pardon?',
                          'Excuse me, could you repeat the question?',
-                         'I’m sorry, I don’t understand. Could you say it again?',
-                         'I’m sorry, I didn’t catch that. Would you mind speaking more slowly?',
+                         'I don’t understand. Could you say it again?',
+                         'I didn’t catch that. Would you mind to repeat?',
                          'I’m confused. Could you tell me again?',
-                         'I’m sorry, I didn’t understand. Could you repeat a little louder, please?',
-                         'I didn’t hear you. Please could you tell me again?']
+                         'I didn’t understand. Could you repeat a little louder?',
+                         'I didn’t get you. Could you tell me again?']
     
     m = message
     message = m.lower()
@@ -169,7 +169,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                     else:
                         topicFound = 'False'
                         res['topicFound'] = topicFound
-                        res['response'] = "I am not really sure what You looking for. Can you be more specific"
+                        res['response'] = random.choice(notKnownResponses)
                         break
                 elif float(i['probability']) < 0.8:
                     topicFound = 'False'
@@ -223,8 +223,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             
                         res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
                                                                                                 'file! ' \
-                                                                                                'Please ' \
-                                                                                                'try again '
+                                                                                                'Try again '
                         'with your '
                         'search!'
                         topicFound = 'False'
@@ -239,7 +238,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
                                                                           classifiedMessage)
                             res['possibleTopics'] = possibleTopics
-                            res['response'] = 'Please select the most relevant topic for your query now'
+                            res['response'] = 'Select the most relevant topic for your query'
                             return res
                 else:
                     res['resource'] = rg.get_resources(topicToSearchOnline)
