@@ -74,11 +74,11 @@ def bag_of_words(sentence):
 # function for predicting the class based on the sentences (result based on a bag of words)
 def predict_class(sentence):
     bow = bag_of_words(sentence)
-    res = model.predict(np.array([bow]))[0]
+    respond = model.predict(np.array([bow]))[0]
     # threshold to avoid too much uncertainty
     ERROR_THRESHOLD = 0.25
     # enumerates all the results
-    results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
+    results = [[i, r] for i, r in enumerate(respond) if r > ERROR_THRESHOLD]
 
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
@@ -100,18 +100,17 @@ def get_response(intents_list, intents_json):
 
 
 def clearAllFlags():
-    topicFound = 'False'
-    res['topicFound'] = topicFound
-    readyToSubmit = 'False'
-    res['readySubmit'] = readyToSubmit
-    topicChosen = 'False'
-    res['topicSelected'] = topicChosen
-    fileSubmitted = 'False'
-    res['fileSubmit'] = fileSubmitted
-    classifiedMessage = ''
-    res['classifiedMsg'] = classifiedMessage
-    fileAnalysed = 'False'
-    res['fileAnalysed'] = fileAnalysed
+    res['topicFound'] = 'False'
+    res['readySubmit'] = 'False'
+    res['topicSelected'] = 'False'
+    res['fileSubmit'] = 'False'
+    res['classifiedMsg'] = ''
+    res['fileAnalysed'] = 'False'
+    res['topicSelected'] = ''
+    res['fileUploaded'] = 'None'
+    res['possibleTopics'] = []
+    res['topicFinal'] = ''
+    res['resourcesProvided'] = 'False'
 
 
 def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources,
@@ -138,7 +137,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
     # path for a submitted file
     fileUploaded = file
-    res['fileUploaded'] = file
+    res['fileUploaded'] = fileUploaded
 
     # user message
     classifiedMessage = classifiedMsg
