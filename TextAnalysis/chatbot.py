@@ -239,9 +239,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
             if fileSubmitted == 'True':
                 if fileAnalysed == 'False':
-                    # fileAnalysisResults = FileAnalysis.analyseFile(file,
-                    #                                                classifiedMessage)
-                    fileAnalysisResults = ['neurons']
+                    fileAnalysisResults = FileAnalysis.analyseFile(file,
+                                                                   classifiedMessage)
+
                     if not fileAnalysisResults:
                         if isinstance(fileAnalysisResults, list):
                             res['possibleTopics'] = []
@@ -259,9 +259,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         res['fileSubmit'] = fileSubmitted
                         return res
                     else:
-                        # possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
-                        #                                               classifiedMessage)
-                        possibleTopics = ['spikes', 'neurons']
+                        possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
+                                                                      classifiedMessage)
+
                         res['possibleTopics'] = possibleTopics
                         res['response'] = 'Select the most relevant topic for your query'
                         fileAnalysed = 'True'
