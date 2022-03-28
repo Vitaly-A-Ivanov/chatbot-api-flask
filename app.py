@@ -32,8 +32,8 @@ def run():
     analysedFile = request.args.get('fileAnalysed')
     providedResources = request.args.get('resourcesProvided')
     conversationFinished = request.args.get('conversationFinished')
-    clarify = request.args.get('clarify')
-    answered = request.args.get('answered')
+    clarify = request.args.get('isClarify')
+    answered = request.args.get('isAnswered')
     
     return chatbot.run(message, readySubmit, topicFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file,
                        webResources, analysedFile, providedResources, conversationFinished, clarify, answered)

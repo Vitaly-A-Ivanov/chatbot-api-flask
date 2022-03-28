@@ -277,9 +277,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['response'] = random.choice(notKnownResponses)
                             return res
                     else:
-
-                        fileAnalysisResults = FileAnalysis.analyseFile(file,
-                                                                       classifiedMessage)
+                        fileAnalysisResults = []
+                        # fileAnalysisResults = FileAnalysis.analyseFile(file,
+                        #                                                classifiedMessage)
                         if not fileAnalysisResults:
                             if isinstance(fileAnalysisResults, list):
                                 res['possibleTopics'] = []
