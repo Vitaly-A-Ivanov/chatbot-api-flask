@@ -286,7 +286,6 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
                             res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
                                                                                                     'file! ' \
-                                                                                                    'Try again '
                             'with your '
                             'search!'
                             # topicFound = 'False'
