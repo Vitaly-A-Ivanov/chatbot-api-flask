@@ -111,10 +111,12 @@ def clearAllFlags():
     res['possibleTopics'] = []
     res['topicFinal'] = ''
     res['resourcesProvided'] = 'False'
+    res['clarify'] = 'False'
+    res['answered'] = 'False'
 
 
 def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources,
-        analysedFile, providedResources, isConversationFinished):
+        analysedFile, providedResources, isConversationFinished, clarify, answered):
     # final topic name to be sent online to search
     topicToSearchOnline = topicFinal
     res['topicFinal'] = topicToSearchOnline
@@ -154,6 +156,11 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
     conversationFinished = isConversationFinished
     res['conversationFinished'] = conversationFinished
+
+    isClarify = clarify
+    res['isClarify'] = isClarify
+    isAnswered = answered
+    res['isAnswered'] = isAnswered
 
     emptyInputResponses = ['Please enter something first... :)',
                            'You did not write anything! Try again!',
@@ -239,34 +246,67 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
             if fileSubmitted == 'True':
                 if fileAnalysed == 'False':
-                    fileAnalysisResults = FileAnalysis.analyseFile(file,
-                                                                   classifiedMessage)
 
-                    if not fileAnalysisResults:
-                        if isinstance(fileAnalysisResults, list):
-                            res['possibleTopics'] = []
-
-                        res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
-                                                                                                'file! ' \
-                                                                                                'Try again '
-                        'with your '
-                        'search!'
-                        topicFound = 'False'
-                        res['topicFound'] = topicFound
-                        readyToSubmit = 'False'
-                        res['readySubmit'] = readyToSubmit
-                        fileSubmitted = 'False'
-                        res['fileSubmit'] = fileSubmitted
-                        return res
+                    if isClarify == 'True' and isAnswered == 'False':
+                        sid = SentimentIntensityAnalyzer()
+                        sentiment_score = sid.polarity_scores(message)
+                        if sentiment_score['pos'] > 0.6:
+                            res['response'] = 'OK, what topic do you like to search now?'
+                            isAnswered = 'True'
+                            res['isAnswered'] = isAnswered
+                            return res
+                        if sentiment_score['neg'] > 0.6:
+                            res['response'] = 'Ok, you can ask me something again :}'
+                            topicFound = 'False'
+                            res['topicFound'] = topicFound
+                            readyToSubmit = 'False'
+                            res['readySubmit'] = readyToSubmit
+                            fileSubmitted = 'False'
+                            res['fileSubmit'] = fileSubmitted
+                            return res
+                        if sentiment_score['neu'] > 0.6:
+                            res['response'] = 'So, yes or no?'
+                            return res
+                    elif isClarify == 'True' and isAnswered == 'True':
+                        classifiedMessage = userInput.classify()
+                        if classifiedMessage:
+                            res['classifiedMsg'] = classifiedMessage
+                            res['response'] = "Is '" + classifiedMessage + "' what you looking for?"
+                            return res
+                        else:
+                            res['response'] = random.choice(notKnownResponses)
+                            return res
                     else:
-                        possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
-                                                                      classifiedMessage)
 
-                        res['possibleTopics'] = possibleTopics
-                        res['response'] = 'Select the most relevant topic for your query'
-                        fileAnalysed = 'True'
-                        res['fileAnalysed'] = fileAnalysed
-                        return res
+                        fileAnalysisResults = FileAnalysis.analyseFile(file,
+                                                                       classifiedMessage)
+                        if not fileAnalysisResults:
+                            if isinstance(fileAnalysisResults, list):
+                                res['possibleTopics'] = []
+
+                            res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
+                                                                                                    'file! ' \
+                                                                                                    'Try again '
+                            'with your '
+                            'search!'
+                            # topicFound = 'False'
+                            # res['topicFound'] = topicFound
+                            # readyToSubmit = 'False'
+                            # res['readySubmit'] = readyToSubmit
+                            # fileSubmitted = 'False'
+                            # res['fileSubmit'] = fileSubmitted
+                            isClarify = 'True'
+                            res['isClarify'] = isClarify
+                            return res
+                        else:
+                            possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
+                                                                          classifiedMessage)
+
+                            res['possibleTopics'] = possibleTopics
+                            res['response'] = 'Select the most relevant topic for your query'
+                            fileAnalysed = 'True'
+                            res['fileAnalysed'] = fileAnalysed
+                            return res
                 else:
                     if resourcesProvided == 'False':
                         res['resource'] = rg.get_resources(topicToSearchOnline)
@@ -283,7 +323,6 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['response'] = 'OK, ask me something else again...'
                             return res
                         if sentiment_score['neg'] > 0.6:
-
                             res['conversationFinished'] = "True"
                             res['response'] = 'Bye'
                             clearAllFlags()
