@@ -289,9 +289,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['isAnswered'] = isAnswered
                             isClarify = 'False'
                             res['isClarify'] = isClarify
-                            run('ok', readySubmit, topicFound, fileSubmitted, classifiedMessage, topicChosen,
-                                topicToSearchOnline, fileUploaded, resource, fileAnalysed, resourcesProvided,
-                                conversationFinished, isClarify, isAnswered)
+                            return run('ok', readySubmit, topicFound, fileSubmitted, classifiedMessage, topicChosen,
+                                       topicToSearchOnline, fileUploaded, resource, fileAnalysed, resourcesProvided,
+                                       conversationFinished, isClarify, isAnswered)
                         if sentiment_score['neg'] > 0.6:
                             res['response'] = 'Ok, you can ask me something again :}'
                             isAnswered = 'False'
@@ -309,8 +309,6 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['response'] = 'So, yes or no?'
                             return res
                     else:
-
-
                         fileAnalysisResults = FileAnalysis.analyseFile(file,
                                                                        classifiedMessage)
                         if not fileAnalysisResults:
@@ -319,12 +317,6 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
                             res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your file'
 
-                            # topicFound = 'False'
-                            # res['topicFound'] = topicFound
-                            # readyToSubmit = 'False'
-                            # res['readySubmit'] = readyToSubmit
-                            # fileSubmitted = 'False'
-                            # res['fileSubmit'] = fileSubmitted
                             isClarify = 'True'
                             res['isClarify'] = isClarify
                             return res
