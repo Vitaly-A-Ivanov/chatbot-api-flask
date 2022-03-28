@@ -284,10 +284,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             if isinstance(fileAnalysisResults, list):
                                 res['possibleTopics'] = []
 
-                            res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your ' \
-                                                                                                    'file! ' \
-                            'with your '
-                            'search!'
+                            res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your file'
+
                             # topicFound = 'False'
                             # res['topicFound'] = topicFound
                             # readyToSubmit = 'False'
