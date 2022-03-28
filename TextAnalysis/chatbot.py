@@ -114,7 +114,7 @@ def clearAllFlags():
 
 
 def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources,
-        analysedFile, providedResources):
+        analysedFile, providedResources, isConversationFinished):
     # final topic name to be sent online to search
     topicToSearchOnline = topicFinal
     res['topicFinal'] = topicToSearchOnline
@@ -151,6 +151,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
     resourcesProvided = providedResources
     res['resourcesProvided'] = resourcesProvided
+
+    conversationFinished = isConversationFinished
+    res['conversationFinished'] = conversationFinished
 
     emptyInputResponses = ['Please enter something first... :)',
                            'You did not write anything! Try again!',
@@ -236,8 +239,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
             if fileSubmitted == 'True':
                 if fileAnalysed == 'False':
-                    fileAnalysisResults = FileAnalysis.analyseFile(file,
-                                                                   classifiedMessage)
+                    # fileAnalysisResults = FileAnalysis.analyseFile(file,
+                    #                                                classifiedMessage)
+                    fileAnalysisResults = ['neurons']
                     if not fileAnalysisResults:
                         if isinstance(fileAnalysisResults, list):
                             res['possibleTopics'] = []
@@ -255,8 +259,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         res['fileSubmit'] = fileSubmitted
                         return res
                     else:
-                        possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
-                                                                      classifiedMessage)
+                        # possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
+                        #                                               classifiedMessage)
+                        possibleTopics = ['spikes', 'neurons']
                         res['possibleTopics'] = possibleTopics
                         res['response'] = 'Select the most relevant topic for your query'
                         fileAnalysed = 'True'
@@ -278,6 +283,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['response'] = 'OK, ask me something else again...'
                             return res
                         if sentiment_score['neg'] > 0.6:
+
                             res['conversationFinished'] = "True"
                             res['response'] = 'Bye'
                             clearAllFlags()
