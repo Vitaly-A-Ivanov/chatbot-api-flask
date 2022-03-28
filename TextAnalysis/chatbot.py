@@ -274,10 +274,14 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['response'] = "Is '" + classifiedMessage + "' what you looking for?"
                             isClarify = 'False'
                             res['isClarify'] = isClarify
+                            readyToSubmit = 'False'
+                            res['readySubmit'] = readyToSubmit
 
                             return res
                         else:
                             res['response'] = random.choice(notKnownResponses)
+                            readyToSubmit = 'False'
+                            res['readySubmit'] = readyToSubmit
                             return res
 
                     elif isClarify == 'False' and isAnswered == 'True':
@@ -315,10 +319,13 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             if isinstance(fileAnalysisResults, list):
                                 res['possibleTopics'] = []
 
-                            res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your file'
+                            res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your file! ' \
+                                                                                                    'Another topic? '
 
                             isClarify = 'True'
                             res['isClarify'] = isClarify
+                            readyToSubmit = 'False'
+                            res['readySubmit'] = readyToSubmit
                             return res
                         else:
                             possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
