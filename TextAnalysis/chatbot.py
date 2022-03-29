@@ -325,7 +325,10 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                                 res['possibleTopics'] = possibleTopics
 
                             res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your file! ' \
-                                                                                                    'Another topic? '
+                                                                                                    'Do you want to ' \
+                                                                                                    'search another ' \
+                                                                                                    'topic in your ' \
+                                                                                                    'file? '
 
                             isClarify = 'True'
                             res['isClarify'] = isClarify
