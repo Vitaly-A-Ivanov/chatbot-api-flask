@@ -116,7 +116,7 @@ def clearAllFlags():
 
 
 def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSelected, topicFinal, file, webResources,
-        analysedFile, providedResources, isConversationFinished, clarify, answered):
+        analysedFile, providedResources, isConversationFinished, clarify, answered, topicsPossible):
     # final topic name to be sent online to search
     topicToSearchOnline = topicFinal
     res['topicFinal'] = topicToSearchOnline
@@ -159,8 +159,12 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
     isClarify = clarify
     res['isClarify'] = isClarify
+
     isAnswered = answered
     res['isAnswered'] = isAnswered
+
+    possibleTopics = topicsPossible
+    res['possibleTopics'] = []
 
     emptyInputResponses = ['Please enter something first... :)',
                            'You did not write anything! Try again!',
@@ -317,7 +321,8 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                                                                        classifiedMessage)
                         if not fileAnalysisResults:
                             if isinstance(fileAnalysisResults, list):
-                                res['possibleTopics'] = []
+                                possibleTopics = []
+                                res['possibleTopics'] = possibleTopics
 
                             res['response'] = 'Sorry, but I could not find `' + classifiedMessage + '` in your file! ' \
                                                                                                     'Another topic? '
