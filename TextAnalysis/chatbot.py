@@ -299,7 +299,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['isClarify'] = isClarify
                             return run('ok', readySubmit, topicFound, fileSubmitted, classifiedMessage, topicChosen,
                                        topicToSearchOnline, fileUploaded, resource, fileAnalysed, resourcesProvided,
-                                       conversationFinished, isClarify, isAnswered)
+                                       conversationFinished, isClarify, isAnswered, possibleTopics)
                         if sentiment_score['neg'] > 0.6:
                             res['response'] = 'Ok, you can ask me something again :}'
                             isAnswered = 'False'
