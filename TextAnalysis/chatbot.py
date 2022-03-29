@@ -260,7 +260,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['isAnswered'] = isAnswered
                             return res
                         if sentiment_score['neg'] > 0.6:
-                            res['response'] = 'Ok, you can ask me something again :}'
+                            res['response'] = 'Ok, just let me how if you need help with another file or topic'
                             topicFound = 'False'
                             res['topicFound'] = topicFound
                             readyToSubmit = 'False'
