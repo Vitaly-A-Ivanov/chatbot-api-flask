@@ -145,24 +145,31 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
     classifiedMessage = classifiedMsg
     res['classifiedMsg'] = classifiedMessage
 
+    # web links after the file analysis
     resource = webResources
     res['resource'] = resource
 
+    # flag to identify if the uploaded file was analysed or not
     fileAnalysed = analysedFile
     res['fileAnalysed'] = fileAnalysed
 
+    # flag to identify if web links was provided or not
     resourcesProvided = providedResources
     res['resourcesProvided'] = resourcesProvided
 
+    # flag to identify when a feedback must be presented
     conversationFinished = isConversationFinished
     res['conversationFinished'] = conversationFinished
 
+    # flag to support to search the same file for a different topic
     isClarify = clarify
     res['isClarify'] = isClarify
 
+    # flag to support to search the same file for a different topic
     isAnswered = answered
     res['isAnswered'] = isAnswered
 
+    # first version of topics after the file analysis
     possibleTopics = topicsPossible
     res['possibleTopics'] = []
 
@@ -190,9 +197,10 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
     if not message:
         res['response'] = random.choice(emptyInputResponses)
         return res
-
+    # initial user input analysis.
     else:
-
+        # check if a chatbot determined when a user question related to help with studying or not
+        # if yes, goes to classification and return to the user
         if topicFound == 'False':
             ints = predict_class(message)
             for i in ints:
@@ -220,7 +228,9 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                     break
             res['readySubmit'] = readyToSubmit
             return res
+
         else:
+            # sentiment analysis to determine is that topic was correct after the classiffication
             if readyToSubmit == 'False' and fileSubmitted == 'False':
                 sid = SentimentIntensityAnalyzer()
                 sentiment_score = sid.polarity_scores(message)
@@ -250,7 +260,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
 
             if fileSubmitted == 'True':
                 if fileAnalysed == 'False':
-
+                    #  additional checks, allows a chatbot to search the same uploaded file for a different topics
                     if isClarify == 'True' and isAnswered == 'False':
                         sid = SentimentIntensityAnalyzer()
                         sentiment_score = sid.polarity_scores(message)
@@ -317,6 +327,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['response'] = 'So, yes or no?'
                             return res
                     else:
+                        #  file analysis stage
                         fileAnalysisResults = FileAnalysis.analyseFile(file,
                                                                        classifiedMessage)
                         if not fileAnalysisResults:
@@ -336,6 +347,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['readySubmit'] = readyToSubmit
                             return res
                         else:
+                            #  respond back to the user with a set of possible topics after the file analysis
                             possibleTopics = classification.returnResults(userInput, fileAnalysisResults,
                                                                           classifiedMessage)
 
@@ -345,6 +357,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                             res['fileAnalysed'] = fileAnalysed
                             return res
                 else:
+                    #  web search stage
                     if resourcesProvided == 'False':
                         res['resource'] = rg.get_resources(topicToSearchOnline)
                         resourcesProvided = 'True'
@@ -352,6 +365,7 @@ def run(message, readySubmit, topicWasFound, fileSubmit, classifiedMsg, topicSel
                         res['response'] = "Do you need any more help?"
                         return res
                     else:
+                        #  feedback stage
                         sid = SentimentIntensityAnalyzer()
                         sentiment_score = sid.polarity_scores(message)
                         if sentiment_score['pos'] > 0.6:
